@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Lecturer
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        
+        h1 {
+            text-align: center;
+            font-family:Tahoma;
+            color:white;
+            background-color:cadetblue;
+
+
+        }
+        h2 , p {
+            font-family:Verdana;
+            font-size: medium;
+            color:black;
+        }
+        main {
+          border: 2px solid gray; 
+        }
+    
+    </style>
+    <script>
+        function clearcookie(){
+         let token=document.cookie;
+         token=token+";"+`expires=${new Date(0).toUTCString()}`
+         console.log(token)
+         document.cookie=token;
+         window.location.href="/";
+        }
+
+ 
+ 
+/*setInterval(function(){ 
+
+    
+  let date = new Date(); 
+  let hh = date.getHours();
+  let mm = date.getMinutes();
+  let ss = date.getSeconds();
+  let session = "AM";
+
+  if(hh == 0){
+      hh = 12;
+  }
+  if(hh > 12){
+      hh = hh - 12;
+      session = "PM";
+   }
+
+   hh = (hh < 10) ? "0" + hh : hh;
+   mm = (mm < 10) ? "0" + mm : mm;
+   ss = (ss < 10) ? "0" + ss : ss;
+    
+   let time = hh + ":" + mm + ":" + ss + " " + session;
+
+  document.getElementById("clock").innerHTML= time;
+  //let timet=document.getElementsByClassName("time")[0].innerHTML;
+  //let timet=document.getElementsByTagName("p")[0].innerHTML;
+
+  for(let i=0;i<document.getElementsByTagName("p").length;i++){
+       
+    console.log("time of class"+document.getElementsByTagName("p")[i].innerHTML);
+  let timestr=time.split(':')
+  console.log("actual time" +String(timestr[0]));
+  
+   if(Number(document.getElementsByTagName("p")[i].innerHTML)===Number(timestr[0])){
+ 
+        document.querySelectorAll("section")[i].style.display="block";
+
+    
+   }
+   else if(Number(document.getElementsByTagName("p")[i].innerHTML)!==Number(timestr[0])){
+
+ 
+      document.querySelectorAll("section")[i].style.display="none";
+       
+
+   }
+  }
+
+ 
+   
+    }, 1000);
+
+    */
+
+
+    </script>
+    <header>
+        <center>
+            <h2 id="clock" style="font-family: Tahoma;color:tomato;font-weight: bold;"></h2>
+        </center>
+        
+          
+ <button onclick="clearcookie();">Logout</button>
+        
+    </header>
+    <h1>Lecturer</h1>
+    
+    <main>
+       <div>
+      {%for i in classes%}
+<section>
+    
+          <h2>{{i.class}}</h2>
+          <p class="time">{{i.timing}}</p>      
+        
+        <hr/>
+        
+        {% for id in students %}
+        <i>{{id}}</i>
+        <form class="form-control" action="/attendance" method="post">
+            <input type="hidden" name="class" value="{{i.class}}">
+            <input type="hidden" name="student" value="{{id}}" >
+            
+            <select name="attendance">
+                <option>mark attendance</option>
+                <option value="absent">Absent</option>
+                <option value="present">Present</option>
+            </select>
+            <button type="submit">submit</button>
+        </form>
+      
+        {%endfor%}
+    
+</section>
+
+
+
+      {%endfor%}
+      
+</div>
+
+<div id="div1">
+<div class="container alert-warning">
+            
+ </div>
+</div>    
+</main>
+
+</body>
+</html>

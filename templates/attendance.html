@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title></title>
+ </head>
+ <body>
+  {%for i in names %}
+
+  <p>student name : {{ i }}</p>
+  <form class="form-control">
+      <select name="Attendance">
+          <option>mark attendance</option>
+          <option value="absent">Absent</option>
+          <option value="present">Present</option>
+      </select>
+  </form>
+
+  {%endfor%}
+ </body>
+</html>
