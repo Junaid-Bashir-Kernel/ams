@@ -4,20 +4,8 @@ import hashlib
 import sqlite3
 
 
-
 lecturerloginfunction=Blueprint('lecturerlogin',__name__)
 
-
-database=[{
-    "name":"mohammad",
-    "password":"pass1"
-    
-    },
-{
-    "name":"junaid",
-    "password":"pass2"
-}
-]
 
 
 @lecturerloginfunction.route("/lecturer",methods=["POST","GET"])
@@ -28,7 +16,8 @@ def lecturer():
     cook=request.cookies.get("lectoken")
     currentuser=""
     if cook ==None:
-         return "fuck you"
+         return "not authenticated"
+
     cursor.execute("SELECT * FROM teacher;")
     result=cursor.fetchall()
 
@@ -52,23 +41,25 @@ def lecturer():
         {
             "class":"python",
              "timing":"03",
-             "section":"D2104"
+             "section":"D2104",
+             "teacherid":"1333"
 
         },
         {
             "class":"data structures",
              "timing":"10",
-             "section":"D2104"
+             "section":"D2104",
+             "teacherid":"1333"
 
         }
     ]
     classesfiltered=[]
-    cursor.execute("SELECT section from teacher WHERE id='{}'".format(currentuser))
-    section_result=cursor.fetchall()
+    #cursor.execute("SELECT id  from teacher WHERE id='{}'".format(currentuser))
+    #id_result=cursor.fetchall()
 
     for obj in classes:
-        for secs in section_result:
-            if obj["section"]==secs[0]:
+        #for ids in id_result:
+            if obj["teacherid"]==currentuser:
                 classesfiltered.append(obj)
     print(classesfiltered)
 

@@ -22,12 +22,21 @@
         h2 , p {
             font-family:Verdana;
             font-size: medium;
-            color:black;
-        }
-        main {
-          border: 2px solid gray; 
+            color:white;
         }
     
+        form {
+            width: 300px;
+        }
+    
+        i {
+            font-weight: bold;
+            background-color: aquamarine;
+            color:brown;
+        }
+        .sc {
+            width: 500px;
+        }
     </style>
     <script>
         function clearcookie(){
@@ -95,6 +104,8 @@
     */
 
 
+
+
     </script>
     <header>
         <center>
@@ -103,33 +114,100 @@
         
           
  <button onclick="clearcookie();">Logout</button>
-        
+ <p id="indicator" style="color:brown;">{{done}}</p>      
     </header>
     <h1>Lecturer</h1>
-    
+    <div class="row">
+        <div class="col">
+            <form action="/delete" enctype="application/x-www-form-urlencoded" method="post">
+                <input name="student" placeholder="id of student" required>
+                <button type="submit" class="btn btn-danger">Delete attendance record</button> 
+        </form>
+        </div>
+        <div class="col">
+            <form action="/report" enctype="application/x-www-form-urlencoded" method="post">
+                <input type="text" name="date" placeholder="type " required>
+                <button class="btn btn-primary">get report</button>
+            </form>
+            
+        </div>
+        <div class="col">
+            <form action="/getattendance" enctype="application/x-www-form-urlencoded" method="post">
+                <input type="text" placeholder="id of student" name="id" required>
+                <input type="text" placeholder="date" name="date" required>
+                <input type="text" placeholder="section" name="section" required>
+                <button class="btn btn-success">get attendance</button>
+            </form>
+        </div>
+
+    </div>
+
+
+
+
     <main>
-       <div>
+        <center>
+       <div class="container-fluid">
+
+    
       {%for i in classes%}
 <section>
-    
-          <h2>{{i.class}}</h2>
-          <p class="time">{{i.timing}}</p>      
+   
+          
+          <mark class="badge bg-warning">{{i.class}}</mark><p class="time">{{i.timing}}</p>      
         
-        <hr/>
+
         
         {% for id in students %}
-        <i>{{id}}</i>
-        <form class="form-control" action="/attendance" method="post">
-            <input type="hidden" name="class" value="{{i.class}}">
-            <input type="hidden" name="student" value="{{id}}" >
+        
+        <table>
+        <thead>
+            <tr>
+                <th class="">Mark</th>
+                <th class="">Update</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+        <td>
+                    
+      
+      <form action="/attendance" method="post" enctype="application/x-www-form-urlencoded" class="container-fluid"> 
+    
+
+            <input class="form-control" type="hidden" name="class" value="{{i.class}}">
+            <input  class="form-control" type="hidden" name="student" value="{{id}}" >
+            <input  class="form-control" type="hidden" name="section" value="{{i.section}}" >
             
-            <select name="attendance">
-                <option>mark attendance</option>
+            <select name="attendance" class="form-control">
+                <option>mark attendance for <i>{{id}}</i></option>
                 <option value="absent">Absent</option>
                 <option value="present">Present</option>
             </select>
-            <button type="submit">submit</button>
+            <button type="submit" class="btn btn-primary p-1 my-1">
+                submit
+            </button>
         </form>
+
+        </td>
+                <td>
+
+                    <form  class="sc form-control form-control-sm" action="/update" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="student" value="{{id}}">
+                        <select  class="form-control" name="updatedvalue">
+                         <option>Select the updated value</option>
+                         <option value="absent">Absent</option>
+                         <option value="present">Present</option>
+                        </select>
+                        <input type="hidden" name="student">
+                        <button type="submit" class="btn btn-warning p-1 my-1">Update</button>
+                    </form> 
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        
       
         {%endfor%}
     
@@ -138,14 +216,16 @@
 
 
       {%endfor%}
-      
+
 </div>
+</center>
 
 <div id="div1">
-<div class="container alert-warning">
+<div class="container">
             
  </div>
 </div>    
+
 </main>
 
 </body>

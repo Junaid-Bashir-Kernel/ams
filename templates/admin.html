@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
  <head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+ <script>
+  
+  setInterval(()=>{
+    let elm=document.getElementById("indicator");
+    elm.innerHTML="status"
+  },3000)
+  </script>
 <style>
  h1 {
    color:tomato;
@@ -8,26 +17,155 @@
    font-family:Tahoma;
    text-decoration: dotted;
    font-size:large;
-   background-color: antiquewhite;
   }
-  #admin:hover {
-     width: 900px;
-     border: 3px solid yellow;
-      
+  p{
+    text-align: center;
   }
-  p {
-    background-color:brown;
-    color:white;
-
+  #student {
+    display: inline-flex;
+  }
+  #teacher {
+    display:inline-flex;
   }
 </style>
  </head>
  <body>
-  <main>
-   <h1></h1>
-   <p>{{user}}</p>
-      <div id="admin">
+  <header>
     
+   
+  </header>
+  <main>
+   <h1>Admin [database admin]</h1>
+   <p class="alert alert-warning p-1 my-1">{{user}}</p>
+   <p id="indicator" style="color:brown;">{{done}}</p>
+   <div id="student">
+     
+    <div class="card">
+      <div class="card-body">
+        <section>
+          <i>Add Student</i>
+          <form class="sc form-control form-control-sm"  action="/addstudent" method="post" enctype="application/x-www-form-urlencoded">
+          <input  class="form-control" type="text"  name="id"  placeholder="student id"required>
+          <input class="form-control"   type="text"  name="name"  placeholder="student name " required>
+          <input class="form-control"  type="text"  name="section"  placeholder="student section" required>
+          <input class="form-control"  type="password" name="password" placeholder="student password" required> 
+          <button type="submit" class="btn btn-success">Add Student</button>
+          </form>
+        </section>
+
+      </div>
+     </div>
+
+
+     <div class="card">
+      <div class="card-body">
+           
+        <section>
+          <i>Update Student</i>
+          <form class="sc form-control form-control-sm"  action="/updatestudent" method="post" enctype="application/x-www-form-urlencoded">
+         
+          <select name="id">
+            {%for id in sids%} 
+     
+            <option value="{{id}}">{{id}}</option>
+            {%endfor%}
+     
+           </select>
+          <select name="column" class="form-control">
+            {% for col in scolumns %}
+             <option value="{{col}}">{{col}}</option>
+            {%endfor%}
+          </select>
+          <input class="form-control"   type="text"  name="value"  placeholder="value " required>
+    
+          <button type="submit" class="btn btn-warning">update Student</button>
+          </form>
+    
+        </section>
+      </div>
+     </div>
+
+     <div class="card">
+      <div class="card-body">
+        <section>
+          <i>Delete student</i>
+          <form class="form-control" action="/delstudent" method="post" enctype="application/x-www-form-urlencoded">
+    
+            <select class="form-control form-control-sm"  name="id" id="">
+              {%for id in sids%}
+            <option value="{{id}}">{{id}}</option>
+            {%endfor%}
+            </select>
+            <button type="submit" class="btn btn-danger">delete</button>
+          </form>
+        </section>
+      </div>
+     </div>
+
+
+   </div>
+  
+  
+   <div id="teacher">
+    <div class="card">
+      <div class="card-body">
+        <section>
+          <i>Add Teacher</i>
+          <form class="sc form-control form-control-sm"  action="/addteacher" method="post" enctype="application/x-www-form-urlencoded">
+          <input  class="form-control" type="text"  name="id"  placeholder="id"required>
+          <input class="form-control"   type="text"  name="name"  placeholder="name " required>
+          <input class="form-control"  type="text"  name="section"  placeholder="section" required>
+          <input class="form-control"  type="password" name="password" placeholder="password" required> 
+          <button type="submit" class="btn btn-success">Add Teacher</button>
+          </form>
+        </section>
+      </div>
+    </div>
+   
+    <div class="card">
+      <div class="card-body">
+        <section>
+          <i>Update Teacher</i>
+          <form class="sc form-control form-control-sm"  action="/updateteacher" method="post" enctype="application/x-www-form-urlencoded">
+          
+          <select name="id">
+           {%for id in tids%} 
+    
+           <option value="{{id}}">{{id}}</option>
+           {%endfor%}
+    
+          </select>
+          <select name="column" class="form-control">
+            {% for col in tcolumns %}
+             <option value="{{col}}">{{col}}</option>
+            {%endfor%}
+          </select>
+          <input class="form-control"   type="text"  name="value"  placeholder="value " required>
+    
+          <button type="submit" class="btn btn-warning">update Teacher</button>
+          </form>
+    
+        </section>
+      </div>
+    </div>
+
+<div class="card">
+  <div class="card-body">
+    <section>
+      <i>Delete Teacher</i>
+      <form class="form-control" action="/delteacher" method="post" enctype="application/x-www-form-urlencoded">
+        <select class="form-control form-control-sm"  name="id" id="">
+          {%for id in tids%}
+        <option value="{{id}}">{{id}}</option>
+        {%endfor%}
+        </select>
+        <button type="submit" class="btn btn-danger">delete</button>
+      </form>
+    </section>
+  </div>
+</div>
+
+
    </div>
   </main>
  </body>

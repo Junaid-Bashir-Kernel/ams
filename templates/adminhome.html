@@ -33,14 +33,14 @@
  <body>
   <script>
    function showadminregister(){
-    let adminregister=document.getElementById("adminregister");
+    let adminregister=document.getElementById("adminsignup");
     let adminlogin=document.getElementById("adminlogin");
     adminregister.style.display="block";
     adminlogin.style.display="none";
    }
  
    function showadminlogin(){
-    let adminregister=document.getElementById("adminregister");
+    let adminregister=document.getElementById("adminsignup");
     let adminlogin=document.getElementById("adminlogin");
     adminregister.style.display="none";
     adminlogin.style.display="block";
@@ -52,25 +52,28 @@
    <div id="adminlogin" style="display: block;">
    <form  action="/adminlogin" method="post" enctype="application/x-www-form-urlencoded">
 
-    <input class="form-control"  type="text" name="id">
-    <input  class="form-control" type="text" name="password">
+    <input class="form-control"  type="text" name="id" required>
+    <input  class="form-control" type="text" name="password" required>
     <center>
      <button type="submit">Signin</button>
      <button onclick="showadminregister();">Register Admin</button>
-    </center>
 
-   </form>
+    </form>
+
+</center>
+
+   
    </div>
    <div id="adminsignup" style="display: none;">
     <form  action="/adminregister" method="post" enctype="application/x-www-form-urlencoded">
  
-     <input class="form-control"  type="text" name="id">
-     <input class="form-control"  type="text" name="name">
-     <input  class="form-control" type="text" name="password">
+     <input class="form-control"  type="text" name="id" required>
+     <input class="form-control"  type="text" name="name" required>
+     <input  class="form-control" type="text" name="password" required>
      <button type="submit">Signup</button>
-     <button onclick="showadminlogin();">Login as Admin</button>
- 
+     <button onclick="showadminlogin();">Log in as Admin</button>
     </form>
+    
     </div>
 
   </main>
